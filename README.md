@@ -65,7 +65,7 @@ WakaTime is great. But it requires installing a plugin in every editor, creating
 ## Installation
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/code-clock.git
+git clone https://github.com/pittsjs/code-clock.git
 cd code-clock
 bash install.sh
 ```
