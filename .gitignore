@@ -1,0 +1,24 @@
+# Virtual environment
+.venv/
+
+# Generated files (personal data — not for committing)
+*.db
+*.log
+*_dashboard.html
+*_stdout.log
+*_stderr.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# macOS
+.DS_Store
+
+# Editors
+.cursor/
+.vscode/
+*.swp

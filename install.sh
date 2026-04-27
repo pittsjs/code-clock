@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VENV="$SCRIPT_DIR/.venv"
+PLIST_LABEL="com.user.codingtracker"
+PLIST_DEST="$HOME/Library/LaunchAgents/$PLIST_LABEL.plist"
+
+echo "==> Creating virtual environment..."
+python3 -m venv "$VENV"
+PYTHON="$VENV/bin/python"
+
+echo "==> Installing Python dependencies..."
+"$PYTHON" -m pip install -q --upgrade click rich
+
+echo "==> Writing launchd plist to $PLIST_DEST"
+cat > "$PLIST_DEST" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>${PLIST_LABEL}</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>${PYTHON}</string>
+        <string>${SCRIPT_DIR}/tracker.py</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>${SCRIPT_DIR}</string>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>${HOME}/.coding_tracker_stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>${HOME}/.coding_tracker_stderr.log</string>
+</dict>
+</plist>
+EOF
+
+echo "==> Loading daemon..."
+launchctl unload "$PLIST_DEST" 2>/dev/null || true
+launchctl load "$PLIST_DEST"
+
+# Add shell alias (always uses the venv python)
+ALIAS_LINE="alias coding-time='${VENV}/bin/python ${SCRIPT_DIR}/cli.py'"
+SHELL_RC="$HOME/.zshrc"
+[ -f "$HOME/.bashrc" ] && SHELL_RC="$HOME/.bashrc"
+
+if ! grep -qF "coding-time" "$SHELL_RC" 2>/dev/null; then
+    printf '\n# Coding time tracker\n%s\n' "$ALIAS_LINE" >> "$SHELL_RC"
+    echo "==> Added 'coding-time' alias to $SHELL_RC"
+else
+    echo "==> 'coding-time' alias already in $SHELL_RC"
+fi
+
+echo ""
+echo "✓ Done! Tracker is running in the background."
+echo ""
+echo "Open a new terminal tab, then try:"
+echo "  coding-time today       — today's summary"
+echo "  coding-time week        — last 7 days"
+echo "  coding-time projects    — per-project breakdown"
+echo "  coding-time dashboard   — open HTML dashboard"
+echo "  coding-time export      — export JSON (for GitHub)"
+echo "  coding-time status      — check daemon health"
+echo ""
+echo "Note: macOS will prompt for Accessibility permission the first"
+echo "time the tracker runs. Allow it in System Settings → Privacy."
