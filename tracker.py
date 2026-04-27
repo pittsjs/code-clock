@@ -25,11 +25,14 @@ logging.basicConfig(
 
 
 def get_active_window() -> tuple[str, str]:
-    """Returns (app_name, window_title) using native macOS APIs.
-    No Automation permission required — only Accessibility for window titles."""
+    """Returns (app_name, window_title) using native macOS APIs."""
     try:
         from AppKit import NSWorkspace
+        from Foundation import NSRunLoop, NSDate
         import ApplicationServices as AX
+
+        # Pump the run loop so NSWorkspace sees the latest frontmost app.
+        NSRunLoop.mainRunLoop().runUntilDate_(NSDate.dateWithTimeIntervalSinceNow_(0.05))
 
         ws = NSWorkspace.sharedWorkspace()
         app = ws.frontmostApplication()
