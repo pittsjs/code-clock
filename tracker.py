@@ -4,7 +4,6 @@ and writes coding sessions to the SQLite database."""
 
 import logging
 import signal
-import subprocess
 import sys
 import time
 from datetime import datetime
@@ -24,36 +23,31 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(message)s",
 )
 
-# AppleScript that returns "AppName|Window Title" for the frontmost window.
-_OSASCRIPT = """
-tell application "System Events"
-    set frontApp to name of first process whose frontmost is true
-    set frontProc to first process whose frontmost is true
-    try
-        set winTitle to name of first window of frontProc
-    on error
-        set winTitle to ""
-    end try
-    return frontApp & "|" & winTitle
-end tell
-"""
-
 
 def get_active_window() -> tuple[str, str]:
-    """Returns (app_name, window_title). Returns ('', '') on any error."""
+    """Returns (app_name, window_title) using native macOS APIs.
+    No Automation permission required — only Accessibility for window titles."""
     try:
-        result = subprocess.run(
-            ["osascript", "-e", _OSASCRIPT],
-            capture_output=True,
-            text=True,
-            timeout=3,
-        )
-        if result.returncode != 0:
+        from AppKit import NSWorkspace
+        import ApplicationServices as AX
+
+        ws = NSWorkspace.sharedWorkspace()
+        app = ws.frontmostApplication()
+        if app is None:
             return "", ""
-        parts = result.stdout.strip().split("|", 1)
-        app = parts[0].strip()
-        title = parts[1].strip() if len(parts) > 1 else ""
-        return app, title
+
+        app_name = app.localizedName()
+        pid = app.processIdentifier()
+
+        # Get window title via Accessibility API (requires Accessibility permission)
+        ax_app = AX.AXUIElementCreateApplication(pid)
+        err, windows = AX.AXUIElementCopyAttributeValue(ax_app, "AXWindows", None)
+        if err == 0 and windows:
+            err, title = AX.AXUIElementCopyAttributeValue(windows[0], "AXTitle", None)
+            if err == 0 and title:
+                return app_name, title
+
+        return app_name, ""
     except Exception as exc:
         logging.warning("get_active_window error: %s", exc)
         return "", ""
