@@ -1,6 +1,7 @@
 import os
 
 CODING_APPS = {
+    "Claude",
     "Cursor",
     "Code",                 # VS Code process name on macOS
     "Visual Studio Code",
