@@ -49,7 +49,7 @@ $ coding-time week
 
 - **Zero-config tracking** — install once, forget about it. Starts automatically on every login.
 - **Works across all editors** — Cursor, VS Code, Claude, Terminal, iTerm2, Warp, JetBrains, Xcode, and more
-- **Project detection** — infers the project name from window titles automatically (editors like Cursor and VS Code include the folder name in the title bar; apps like Claude do not, so their time is tracked but not attributed to a project)
+- **Project detection** — infers project names from window titles for supported apps (see [Project Detection](#project-detection))
 - **Beautiful CLI** — daily summary, weekly view, per-project breakdown, all in your terminal
 - **HTML dashboard** — dark-mode bar charts, doughnut charts, streak and KPI cards
 - **GitHub profile integration** — auto-updates your profile README with a live stats block every day
@@ -86,13 +86,28 @@ coding-time week                   # last 7 days with a bar chart
 coding-time week --days 14         # extend the lookback window
 coding-time projects               # time per project (last 30 days)
 coding-time projects --days 7      # shorter window
+coding-time timeline               # per-project breakdown with daily detail
+coding-time timeline --days 14     # extend the lookback window
 coding-time dashboard              # generate and open HTML dashboard in browser
 coding-time export                 # print JSON stats to stdout
 coding-time export -o stats.json   # write to file
-coding-time timeline               # per-project breakdown with daily detail
-coding-time timeline --days 14     # extend the lookback window
 coding-time status                 # check if the background daemon is running
 ```
+
+## Project Detection
+
+Project names are extracted from the **window title** of the active app. This only works for apps that include the folder or project name in their title bar.
+
+| App | Project detection | Example title |
+|-----|:-----------------:|---------------|
+| Cursor | ✅ | `main.py — my-project — Cursor` |
+| VS Code | ✅ | `main.py — my-project — Visual Studio Code` |
+| Terminal / iTerm2 / Warp | ✅ | Uses current working directory |
+| Claude | ❌ | Title is always just `Claude` |
+| JetBrains IDEs | ✅ | Project name in title bar |
+| Xcode | ✅ | Project name in title bar |
+
+Apps without project detection still have their **time tracked accurately** — sessions just won't appear in `coding-time projects` or `coding-time timeline`.
 
 ## HTML Dashboard
 
@@ -169,6 +184,29 @@ Cursor, VS Code, Claude, Terminal, iTerm2, Warp, Ghostty, Alacritty, Hyper, PyCh
 
 Adding more is one line in [`config.py`](config.py).
 
+## FAQ
+
+**Does it track time when my screen is locked or I'm idle?**
+No. If you switch away from a coding app for more than 5 minutes — whether you lock your screen, switch to a browser, or walk away — the session ends. Time is only counted when a coding app is the active window.
+
+**What's the minimum session length?**
+There's no minimum. Even a 30-second session is recorded. It may display as `0m` in the CLI since output rounds down to whole minutes, but the seconds are stored accurately.
+
+**Why don't my projects show up?**
+Project names are extracted from window titles, which only works for certain apps (see [Project Detection](#project-detection)). Apps like Claude don't include a project name in their title, so that time is tracked but unattributed. As you code more in Cursor or VS Code, projects will fill in automatically.
+
+**Will it drain my battery?**
+No. The daemon wakes up every 10 seconds, reads one value from the OS, then sleeps. CPU usage is effectively zero between polls, with no meaningful battery impact.
+
+**Where is my data stored?**
+Locally at `~/.coding_tracker.db` — a standard SQLite file. It never leaves your machine unless you explicitly run `coding-time export` and do something with the output.
+
+**Can I add an app that isn't tracked?**
+Yes — open [`config.py`](config.py) and add the app's name (as macOS reports it) to `CODING_APPS`. One line change, no restart needed — the daemon picks it up next time it relaunches.
+
+**What if I move the code-clock folder?**
+The launchd plist and shell alias both contain absolute paths set during `install.sh`. If you move the folder, re-run `bash install.sh` from the new location to update them.
+
 ## Roadmap
 
 - [x] GitHub Actions workflow to auto-update profile README
@@ -187,7 +225,7 @@ PRs welcome. The codebase is intentionally small:
 |---|---|
 | `tracker.py` | Background daemon — polls frontmost app, flushes sessions |
 | `db.py` | SQLite read/write layer |
-| `cli.py` | CLI commands (`today`, `week`, `projects`, `dashboard`, `export`) |
+| `cli.py` | CLI commands (`today`, `week`, `projects`, `timeline`, `dashboard`, `export`) |
 | `dashboard.py` | Self-contained HTML report generator |
 | `config.py` | Tracked app list and tunable settings |
 | `scripts/push_stats.sh` | Nightly stats export and git push |
