@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 import json
 import os
+import sqlite3
 import subprocess
 import sys
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 
 import click
 from rich import box
@@ -12,6 +13,7 @@ from rich.panel import Panel
 from rich.table import Table
 
 from db import (
+    _conn,
     get_app_totals,
     get_daily_totals,
     get_project_totals,
@@ -19,6 +21,7 @@ from db import (
     get_stats_summary,
     get_today_by_app,
     init_db,
+    save_session,
 )
 
 console = Console()
@@ -246,6 +249,127 @@ def export(days, output):
         console.print(f"[green]Exported to[/green] {output}")
     else:
         print(out)
+
+
+# Bundle ID → friendly app name mapping for Screen Time import.
+# Screen Time stores apps by bundle identifier; we translate to the same
+# names used by the live tracker so reports stay consistent.
+_SCREEN_TIME_BUNDLES = {
+    "com.todesktop.230313mzl4w4u92": "Cursor",
+    "com.anthropic.claudefordesktop": "Claude",
+    "com.apple.Terminal": "Terminal",
+    "com.googlecode.iterm2": "iTerm2",
+    "com.warp.Warp-Stable": "Warp",
+    "com.mitchellh.ghostty": "Ghostty",
+    "com.microsoft.VSCode": "VS Code",
+    "com.jetbrains.pycharm": "PyCharm",
+    "com.jetbrains.intellij": "IntelliJ IDEA",
+    "com.jetbrains.WebStorm": "WebStorm",
+    "com.apple.dt.Xcode": "Xcode",
+    "com.sublimetext.4": "Sublime Text",
+    "com.macromates.TextMate": "TextMate",
+}
+
+_APPLE_EPOCH_OFFSET = 978307200  # seconds between 1970-01-01 and 2001-01-01
+
+
+@cli.command("import-screentime")
+@click.option(
+    "--days",
+    default=None,
+    type=int,
+    help="Only import sessions from the last N days (default: all available)",
+)
+def import_screentime(days):
+    """Import historical app usage from macOS Screen Time.
+
+    Reads ~/Library/Application Support/Knowledge/knowledgeC.db, which
+    macOS keeps for ~30 days. Requires Full Disk Access for your terminal
+    in System Settings → Privacy & Security → Full Disk Access.
+
+    Re-running is safe — sessions are deduplicated by (app, start time).
+    """
+    st_path = os.path.expanduser("~/Library/Application Support/Knowledge/knowledgeC.db")
+
+    if not os.path.exists(st_path):
+        console.print("[red]Screen Time database not found.[/red]")
+        console.print(f"[dim]Expected at: {st_path}[/dim]")
+        sys.exit(1)
+
+    try:
+        st = sqlite3.connect(f"file:{st_path}?mode=ro", uri=True)
+    except sqlite3.OperationalError as e:
+        console.print(f"[red]Cannot read Screen Time database: {e}[/red]")
+        console.print(
+            "[yellow]This usually means your terminal needs Full Disk Access.[/yellow]\n"
+            "[dim]Grant it in System Settings → Privacy & Security → Full Disk Access[/dim]"
+        )
+        sys.exit(1)
+
+    bundles = list(_SCREEN_TIME_BUNDLES.keys())
+    placeholders = ",".join("?" * len(bundles))
+
+    sql = f"""
+        SELECT
+            ZVALUESTRING AS bundle,
+            ZSTARTDATE + {_APPLE_EPOCH_OFFSET} AS start_unix,
+            ZENDDATE   + {_APPLE_EPOCH_OFFSET} AS end_unix
+        FROM ZOBJECT
+        WHERE ZSTREAMNAME = '/app/usage'
+          AND ZVALUESTRING IN ({placeholders})
+          AND ZENDDATE > ZSTARTDATE
+    """
+    params = list(bundles)
+
+    if days:
+        cutoff_apple = (datetime.now() - timedelta(days=days)).timestamp() - _APPLE_EPOCH_OFFSET
+        sql += " AND ZSTARTDATE >= ?"
+        params.append(cutoff_apple)
+
+    sql += " ORDER BY ZSTARTDATE"
+
+    rows = st.execute(sql, params).fetchall()
+    st.close()
+
+    init_db()
+
+    # Load existing (app, started_at) so reruns are idempotent.
+    existing = set()
+    with _conn() as conn:
+        for r in conn.execute("SELECT app, started_at FROM sessions"):
+            existing.add((r[0], r[1]))
+
+    imported = 0
+    skipped_dupe = 0
+    skipped_short = 0
+
+    for bundle, start_unix, end_unix in rows:
+        started = datetime.fromtimestamp(start_unix)
+        ended = datetime.fromtimestamp(end_unix)
+        app = _SCREEN_TIME_BUNDLES.get(bundle, bundle)
+
+        if (ended - started).total_seconds() < 10:
+            skipped_short += 1
+            continue
+
+        if (app, started.isoformat()) in existing:
+            skipped_dupe += 1
+            continue
+
+        save_session(app=app, project=None, started_at=started, ended_at=ended)
+        imported += 1
+
+    console.print(f"[green]Imported {imported} sessions[/green]")
+    notes = []
+    if skipped_dupe:
+        notes.append(f"{skipped_dupe} already imported")
+    if skipped_short:
+        notes.append(f"{skipped_short} too short (<10s)")
+    if notes:
+        console.print(f"[dim]Skipped: {', '.join(notes)}[/dim]")
+
+    if imported:
+        console.print("[dim]Run 'coding-time week --days 30' to see backfilled history.[/dim]")
 
 
 @cli.command()

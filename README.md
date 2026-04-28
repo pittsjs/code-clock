@@ -98,6 +98,7 @@ coding-time timeline --days 14     # extend the lookback window
 coding-time dashboard              # generate and open HTML dashboard in browser
 coding-time export                 # print JSON stats to stdout
 coding-time export -o stats.json   # write to file
+coding-time import-screentime      # backfill history from macOS Screen Time
 coding-time status                 # check if the background daemon is running
 ```
 
@@ -196,6 +197,23 @@ app_name = app.localizedName()
 
 Window titles (used for project detection) are read via the Accessibility API. Sessions are flushed to a local SQLite database (`~/.coding_tracker.db`) when you switch apps or after 5 minutes of inactivity.
 
+## Backfilling History from Screen Time
+
+If you've been using a Mac with Screen Time enabled, you already have weeks of coding history sitting in macOS's database. Pull it into code-clock with one command:
+
+```bash
+coding-time import-screentime              # import all available history
+coding-time import-screentime --days 14    # only the last 2 weeks
+```
+
+Re-running is safe — sessions are deduplicated by `(app, start time)`, so you can run it again any time without creating duplicates.
+
+> **Permissions:** This command needs **Full Disk Access** for your terminal. Grant it in **System Settings → Privacy & Security → Full Disk Access**, then re-open your terminal.
+>
+> macOS Screen Time only retains roughly 30 days of history, so you'll get at most a few weeks of backfill. After that, code-clock keeps everything permanently.
+
+Imported sessions don't include project names (Screen Time doesn't capture window titles), so they only show up in `coding-time week` and the app split — not in the per-project views.
+
 ## FAQ
 
 **Does it track time when my screen is locked or I'm idle?**
@@ -222,11 +240,11 @@ The launchd plist and shell alias both contain absolute paths set during `instal
 ## Roadmap
 
 - [x] GitHub Actions workflow to auto-update profile README
-- [ ] `coding-time import-screentime` — import macOS Screen Time history as a single CLI command
+- [x] `coding-time import-screentime` — backfill history from macOS Screen Time
 - [ ] Shareable stats card (SVG / image badge)
 - [ ] Per-language breakdown from file extensions in window titles
 - [ ] Daily goal + streak notifications
-- [ ] Linux support via `xdotool`
+- [ ] Time-of-day heatmap (hour × day-of-week grid showing your peak coding hours)
 - [ ] Web UI with persistent history
 
 ## Contributing
