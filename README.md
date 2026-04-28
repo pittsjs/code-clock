@@ -49,7 +49,7 @@ $ coding-time week
 
 - **Zero-config tracking** — install once, forget about it. Starts automatically on every login.
 - **Works across all editors** — Cursor, VS Code, Claude, Terminal, iTerm2, Warp, JetBrains, Xcode, and more
-- **Project detection** — infers the project name from window titles automatically
+- **Project detection** — infers the project name from window titles automatically (editors like Cursor and VS Code include the folder name in the title bar; apps like Claude do not, so their time is tracked but not attributed to a project)
 - **Beautiful CLI** — daily summary, weekly view, per-project breakdown, all in your terminal
 - **HTML dashboard** — dark-mode bar charts, doughnut charts, streak and KPI cards
 - **GitHub profile integration** — auto-updates your profile README with a live stats block every day
