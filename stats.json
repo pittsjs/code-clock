@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-04-28",
+  "period_days": 7,
+  "summary": {
+    "total_hours": 14.4,
+    "daily_avg_hours": 2.9,
+    "days_active": 5,
+    "streak_days": 2,
+    "top_project": "Project-Portfolio-Samuel-Settie"
+  },
+  "daily": [
+    {
+      "date": "2026-04-22",
+      "hours": 0.57
+    },
+    {
+      "date": "2026-04-23",
+      "hours": 2.68
+    },
+    {
+      "date": "2026-04-25",
+      "hours": 5.65
+    },
+    {
+      "date": "2026-04-27",
+      "hours": 5.48
+    },
+    {
+      "date": "2026-04-28",
+      "hours": 0.04
+    }
+  ],
+  "projects": [
+    {
+      "name": "Project-Portfolio-Samuel-Settie",
+      "hours": 0.74
+    },
+    {
+      "name": "cop-gis-OneStop-Guide",
+      "hours": 0.03
+    },
+    {
+      "name": "coding time tracker",
+      "hours": 0.02
+    }
+  ],
+  "apps": [
+    {
+      "name": "Cursor",
+      "hours": 11.95
+    },
+    {
+      "name": "Claude",
+      "hours": 2.48
+    },
+    {
+      "name": "Terminal",
+      "hours": 0.0
+    },
+    {
+      "name": "VS Code",
+      "hours": 0.0
+    }
+  ]
+}
