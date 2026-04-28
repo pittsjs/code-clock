@@ -15,6 +15,7 @@ from db import (
     get_app_totals,
     get_daily_totals,
     get_project_totals,
+    get_projects_timeline,
     get_stats_summary,
     get_today_by_app,
     init_db,
@@ -150,6 +151,48 @@ def projects(days):
         )
 
     console.print(table)
+
+
+@cli.command()
+@click.option("--days", default=30, show_default=True, help="Lookback period in days")
+def timeline(days):
+    """Show per-project breakdown with daily detail."""
+    from datetime import date as _date
+    rows = get_projects_timeline(days)
+
+    if not rows:
+        console.print(f"[dim]No project data in the last {days} days.[/dim]")
+        return
+
+    # Group rows by project
+    projects: dict[str, list] = {}
+    for r in rows:
+        projects.setdefault(r["project"], []).append(r)
+
+    # Sort projects by total time desc
+    projects = dict(
+        sorted(projects.items(), key=lambda kv: sum(r["total"] for r in kv[1]), reverse=True)
+    )
+
+    max_total = max(sum(r["total"] for r in v) for v in projects.values()) or 1
+
+    for project, days_data in projects.items():
+        total = sum(r["total"] for r in days_data)
+        proj_bar_len = int(total / max_total * 16)
+        console.print(
+            f"[cyan bold]{project}[/cyan bold]  "
+            f"[green]{_fmt(total)} total[/green]"
+        )
+
+        day_max = max(r["total"] for r in days_data) or 1
+        for r in days_data:
+            d = _date.fromisoformat(r["day"])
+            day_label = d.strftime("%a %b %d")
+            bar_len = int(r["total"] / day_max * 16)
+            bar = "[green]" + "█" * bar_len + "[/green][dim]" + "░" * (16 - bar_len) + "[/dim]"
+            console.print(f"  [dim]{day_label}[/dim]  [green]{_fmt(r['total']):>7}[/green]  {bar}")
+
+        console.print()
 
 
 @cli.command()

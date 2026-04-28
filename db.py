@@ -123,6 +123,27 @@ def get_stats_summary(days: int = 7) -> dict:
     }
 
 
+def get_projects_timeline(days: int = 30) -> list[dict]:
+    """Returns projects with per-day breakdown, sorted by total time desc."""
+    since = (date.today() - timedelta(days=days - 1)).isoformat()
+    with _conn() as conn:
+        rows = conn.execute(
+            """
+            SELECT
+                project,
+                date(started_at) AS day,
+                SUM(duration_secs) AS total
+            FROM sessions
+            WHERE date(started_at) >= ?
+              AND project IS NOT NULL AND project != ''
+            GROUP BY project, day
+            ORDER BY project, day
+            """,
+            (since,),
+        ).fetchall()
+    return [dict(r) for r in rows]
+
+
 def get_app_totals(days: int = 30) -> list[dict]:
     since = (date.today() - timedelta(days=days - 1)).isoformat()
     with _conn() as conn:

@@ -89,6 +89,8 @@ coding-time projects --days 7      # shorter window
 coding-time dashboard              # generate and open HTML dashboard in browser
 coding-time export                 # print JSON stats to stdout
 coding-time export -o stats.json   # write to file
+coding-time timeline               # per-project breakdown with daily detail
+coding-time timeline --days 14     # extend the lookback window
 coding-time status                 # check if the background daemon is running
 ```
 
