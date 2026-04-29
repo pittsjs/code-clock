@@ -24,10 +24,13 @@ _APP_MIN_SECS = 60
 def _app_totals_window(days: int) -> list[dict]:
     """App totals for the last N days. Returns [{app, secs}, ...] sorted desc.
 
-    Filters out apps with < _APP_MIN_SECS so the doughnut legend only shows
-    apps the user meaningfully used in the window.
+    For multi-day windows we filter apps under _APP_MIN_SECS to keep noise
+    (Terminal/VS Code accidentally focused for 10s a week ago) out of the
+    legend. For the 1-day window we keep everything — short sessions are
+    legitimately interesting when you're looking at just today.
     """
     since = (date.today() - timedelta(days=days - 1)).isoformat()
+    threshold = 0 if days <= 1 else _APP_MIN_SECS
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     rows = conn.execute(
@@ -39,7 +42,7 @@ def _app_totals_window(days: int) -> list[dict]:
         HAVING total >= ?
         ORDER BY total DESC
         """,
-        (since, _APP_MIN_SECS),
+        (since, threshold),
     ).fetchall()
     conn.close()
     return [{"app": r["app"], "secs": r["total"]} for r in rows]
@@ -247,6 +250,20 @@ def generate_dashboard() -> str:
   canvas { width: 100% !important; max-height: 240px; }
   #appCanvas { max-height: 220px; }
 
+  .chart-wrap { position: relative; min-height: 220px; }
+  .empty-state {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: #6e7681;
+    font-size: 0.85rem;
+    text-align: center;
+    padding: 0 16px;
+  }
+  .empty-state.visible { display: flex; }
+
   .side {
     background: #161b22;
     border: 1px solid #30363d;
@@ -324,7 +341,10 @@ def generate_dashboard() -> str:
           <button data-window="month">Month</button>
         </div>
       </div>
-      <canvas id="appCanvas"></canvas>
+      <div class="chart-wrap">
+        <canvas id="appCanvas"></canvas>
+        <div class="empty-state" id="appEmpty">No sessions in this window yet.</div>
+      </div>
     </div>
 
     <div class="card">
@@ -478,19 +498,34 @@ const appChart = new Chart(document.getElementById('appCanvas'), {
   }
 });
 
+function renderAppWindow(win) {
+  const rows = DATA.appWindows[win] || [];
+  const empty = document.getElementById('appEmpty');
+  const canvas = document.getElementById('appCanvas');
+  if (!rows.length) {
+    empty.classList.add('visible');
+    canvas.style.display = 'none';
+    return;
+  }
+  empty.classList.remove('visible');
+  canvas.style.display = '';
+  appChart.data.labels = rows.map(r => r.app);
+  appChart.data.datasets[0].data = rows.map(r => r.secs);
+  appChart.data.datasets[0].backgroundColor = rows.map(r => APP_COLORS[r.app]);
+  appChart.data.datasets[0].offset = rows.map(() => 0);
+  appChart.update();
+}
+
 document.querySelectorAll('#appSeg button').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('#appSeg button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const win = btn.dataset.window;
-    const rows = DATA.appWindows[win];
-    appChart.data.labels = rows.map(r => r.app);
-    appChart.data.datasets[0].data = rows.map(r => r.secs);
-    appChart.data.datasets[0].backgroundColor = rows.map(r => APP_COLORS[r.app]);
-    appChart.data.datasets[0].offset = rows.map(() => 0);
-    appChart.update();
+    renderAppWindow(btn.dataset.window);
   });
 });
+
+// Apply empty-state on initial load too (in case Week is empty).
+renderAppWindow('week');
 
 // Stacked bar chart — one dataset per app, summed per day.
 const dailyDatasets = DATA.daily.apps.map(app => ({
