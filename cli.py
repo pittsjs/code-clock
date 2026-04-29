@@ -4,7 +4,7 @@ import os
 import sqlite3
 import subprocess
 import sys
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 
 import click
 from rich import box
@@ -220,6 +220,7 @@ def export(days, output):
 
     payload = {
         "generated_at": date.today().isoformat(),
+        "exported_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "period_days": days,
         "summary": {
             "total_hours": round(summary["total_secs"] / 3600, 1),

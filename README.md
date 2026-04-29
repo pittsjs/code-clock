@@ -117,8 +117,8 @@ coding-time status                 # check if the background daemon is running
 
 code-clock can automatically update your GitHub profile README with a live coding stats block. The setup uses two pieces:
 
-1. **A nightly local job** — `scripts/push_stats.sh` exports your stats to `stats.json` and pushes them to this repo at 23:55 every night (installed automatically by `install.sh`).
-2. **A GitHub Action** in your profile repo — fetches `stats.json` daily and updates your README between these markers:
+1. **The tracker daemon** debounces and runs **`scripts/push_stats.sh`** about **90 seconds** after you finish a coding session (configurable via `STATS_PUSH_DEBOUNCE_SECS` in `config.py`). **Plus**, a **`launchd` job** from `install.sh` watches **`~/.coding_tracker.db`** (and WAL sidecars) with a **5-minute** throttle, and runs at **13:30** and **20:30** as a backup. The script only pushes from branch **`main`**. Nothing on GitHub’s cloud writes `stats.json` — your Mac needs network and a non-interactive **`git push`** (HTTPS + credential helper or SSH with an agent/socket visible to background jobs).
+2. **A GitHub Action** in your profile repo — fetches `stats.json` on a schedule and updates your README between these markers:
 
 ```markdown
 <!--START_SECTION:coding-stats-->
@@ -139,7 +139,19 @@ The result on your profile:
 > Top project: code-clock · Auto-updated Apr 27, 2026
 ```
 
-The full workflow file is at [`.github/workflows/update-readme.yml`](.github/workflows/update-readme.yml).
+Add a workflow under your **profile** repository (for example `.github/workflows/update-readme.yml` in `pittsjs/pittsjs`), not in this repo.
+
+#### What you must configure
+
+| Piece | Requirement |
+|--------|----------------|
+| **Stats source (`stats.json`)** | Clone **`pittsjs/code-clock`** (or your fork) to your Mac, run **`bash install.sh`** from that clone so paths and the venv match. Stay on **`main`** for day-to-day use, or always merge stats commits there — `push_stats.sh` pushes the current branch. |
+| **File path** | Repo root: **`stats.json`** (raw URL: `https://raw.githubusercontent.com/pittsjs/code-clock/main/stats.json`). |
+| **Git auth** | **`git push`** must work non-interactively from that clone (SSH agent, Git Credential Manager, or similar). No GitHub token is required in the repo for the push itself. |
+| **Machine** | The Mac must be awake with the job loaded (`launchctl list com.user.codingtracker.stats`). Logs: `~/.coding_tracker_stats_stdout.log` / `_stderr.log`. |
+| **Profile README workflow** | In **`pittsjs/pittsjs`**, use the default **`GITHUB_TOKEN`** or a PAT with **`contents: write`**. Enable whatever triggers you need (`schedule` with `cron`, **`workflow_dispatch`**, etc.) and fetch the same raw **`stats.json`** URL. |
+
+After coding, confirm the raw file changed before debugging the profile workflow: if `stats.json` on `main` is stale, the README action will correctly skip a commit.
 
 ### JSON Export
 
@@ -148,6 +160,7 @@ The full workflow file is at [`.github/workflows/update-readme.yml`](.github/wor
 ```json
 {
   "generated_at": "2026-04-27",
+  "exported_at": "2026-04-27T12:00:00Z",
   "period_days": 7,
   "summary": {
     "total_hours": 16.1,
