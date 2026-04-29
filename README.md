@@ -136,7 +136,7 @@ The result on your profile:
 | Tue | 2h 41m | ████████         |
 | ...
 
-> Top project: code-clock · Auto-updated Apr 27, 2026
+> Top project: code-clock · Metrics 2026-04-27 · export Apr 27, 2026 12:00 UTC
 ```
 
 Add a workflow under your **profile** repository (for example `.github/workflows/update-readme.yml` in `pittsjs/pittsjs`), not in this repo.
@@ -149,7 +149,7 @@ Add a workflow under your **profile** repository (for example `.github/workflows
 | **File path** | Repo root: **`stats.json`** (raw URL: `https://raw.githubusercontent.com/pittsjs/code-clock/main/stats.json`). |
 | **Git auth** | **`git push`** must work non-interactively from that clone (SSH agent, Git Credential Manager, or similar). No GitHub token is required in the repo for the push itself. |
 | **Machine** | The Mac must be awake with the job loaded (`launchctl list com.user.codingtracker.stats`). Logs: `~/.coding_tracker_stats_stdout.log` / `_stderr.log`. |
-| **Profile README workflow** | In **`pittsjs/pittsjs`**, use the default **`GITHUB_TOKEN`** or a PAT with **`contents: write`**. Enable whatever triggers you need (`schedule` with `cron`, **`workflow_dispatch`**, etc.) and fetch the same raw **`stats.json`** URL. |
+| **Profile README workflow** | In **`pittsjs/pittsjs`**, use the default **`GITHUB_TOKEN`** with **`contents: write`**, plus `schedule` / **`workflow_dispatch`**. Prefer fetching **`stats.json`** via the **GitHub Contents API** (`Accept: application/vnd.github.v3.raw`) so runners see the latest `main` revision; **`raw.githubusercontent.com`** can lag a few minutes behind. |
 
 After coding, confirm the raw file changed before debugging the profile workflow: if `stats.json` on `main` is stale, the README action will correctly skip a commit.
 

@@ -38,3 +38,6 @@ IDLE_THRESHOLD_SECS = 300   # 5 min of non-coding = end of session
 DB_PATH = os.path.expanduser("~/.coding_tracker.db")
 LOG_PATH = os.path.expanduser("~/.coding_tracker.log")
 DASHBOARD_PATH = os.path.expanduser("~/.coding_tracker_dashboard.html")
+
+# After a session is saved, wait this long (no new saves) before running push_stats.sh.
+STATS_PUSH_DEBOUNCE_SECS = 90

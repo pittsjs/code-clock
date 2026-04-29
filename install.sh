@@ -61,6 +61,16 @@ cat > "$STATS_PLIST_DEST" <<EOF
         <string>/bin/bash</string>
         <string>${SCRIPT_DIR}/scripts/push_stats.sh</string>
     </array>
+    <key>WorkingDirectory</key>
+    <string>${SCRIPT_DIR}</string>
+    <key>WatchPaths</key>
+    <array>
+        <string>${HOME}/.coding_tracker.db</string>
+        <string>${HOME}/.coding_tracker.db-wal</string>
+        <string>${HOME}/.coding_tracker.db-shm</string>
+    </array>
+    <key>ThrottleInterval</key>
+    <integer>300</integer>
     <key>StartCalendarInterval</key>
     <array>
         <dict>

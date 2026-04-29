@@ -6,6 +6,20 @@ PYTHON="$SCRIPT_DIR/.venv/bin/python"
 
 cd "$SCRIPT_DIR"
 
+branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "")
+if [ "$branch" != "main" ]; then
+  echo "Not on main (branch=$branch), skipping stats push"
+  exit 0
+fi
+
+git fetch origin main 2>/dev/null || true
+if git rev-parse -q --verify refs/remotes/origin/main >/dev/null 2>&1; then
+  git pull --rebase --autostash origin main || {
+    echo "stats push: git pull --rebase origin main failed" >&2
+    exit 1
+  }
+fi
+
 "$PYTHON" cli.py export -o stats.json
 
 git add stats.json
