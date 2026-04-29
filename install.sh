@@ -5,6 +5,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV="$SCRIPT_DIR/.venv"
 PLIST_LABEL="com.user.codingtracker"
 PLIST_DEST="$HOME/Library/LaunchAgents/$PLIST_LABEL.plist"
+STATS_PLIST_LABEL="com.user.codingtracker.stats"
+STATS_PLIST_DEST="$HOME/Library/LaunchAgents/$STATS_PLIST_LABEL.plist"
 
 echo "==> Creating virtual environment..."
 python3 -m venv "$VENV"
@@ -44,6 +46,47 @@ EOF
 echo "==> Loading daemon..."
 launchctl unload "$PLIST_DEST" 2>/dev/null || true
 launchctl load "$PLIST_DEST"
+
+echo "==> Writing nightly stats plist to $STATS_PLIST_DEST"
+cat > "$STATS_PLIST_DEST" <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>${STATS_PLIST_LABEL}</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>${SCRIPT_DIR}/scripts/push_stats.sh</string>
+    </array>
+    <key>StartCalendarInterval</key>
+    <array>
+        <dict>
+            <key>Hour</key>
+            <integer>13</integer>
+            <key>Minute</key>
+            <integer>30</integer>
+        </dict>
+        <dict>
+            <key>Hour</key>
+            <integer>20</integer>
+            <key>Minute</key>
+            <integer>30</integer>
+        </dict>
+    </array>
+    <key>StandardOutPath</key>
+    <string>${HOME}/.coding_tracker_stats_stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>${HOME}/.coding_tracker_stats_stderr.log</string>
+</dict>
+</plist>
+EOF
+
+echo "==> Loading stats job..."
+launchctl unload "$STATS_PLIST_DEST" 2>/dev/null || true
+launchctl load "$STATS_PLIST_DEST"
 
 # Add shell alias (always uses the venv python)
 ALIAS_LINE="alias coding-time='${VENV}/bin/python ${SCRIPT_DIR}/cli.py'"
