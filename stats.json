@@ -1,9 +1,9 @@
 {
   "generated_at": "2026-04-29",
-  "exported_at": "2026-04-29T18:02:40Z",
+  "exported_at": "2026-04-29T19:56:18Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 19.8,
+    "total_hours": 20.0,
     "daily_avg_hours": 4.0,
     "days_active": 5,
     "streak_days": 3,
@@ -28,7 +28,7 @@
     },
     {
       "date": "2026-04-29",
-      "hours": 1.61
+      "hours": 1.75
     }
   ],
   "projects": [
@@ -38,7 +38,7 @@
     },
     {
       "name": "pittsjs",
-      "hours": 0.72
+      "hours": 0.86
     },
     {
       "name": "cop-gis-OneStop-Guide",
@@ -52,7 +52,7 @@
   "apps": [
     {
       "name": "Cursor",
-      "hours": 14.14
+      "hours": 14.28
     },
     {
       "name": "Claude",
