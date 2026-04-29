@@ -88,6 +88,16 @@ echo "==> Loading stats job..."
 launchctl unload "$STATS_PLIST_DEST" 2>/dev/null || true
 launchctl load "$STATS_PLIST_DEST"
 
+# Install commit-msg hook to enforce vX.Y.Z prefix on every commit.
+if [ -d "$SCRIPT_DIR/.git" ]; then
+    HOOK_SRC="$SCRIPT_DIR/scripts/commit-msg-hook.sh"
+    HOOK_DEST="$SCRIPT_DIR/.git/hooks/commit-msg"
+    chmod +x "$HOOK_SRC"
+    cp "$HOOK_SRC" "$HOOK_DEST"
+    chmod +x "$HOOK_DEST"
+    echo "==> Installed commit-msg hook (enforces vX.Y.Z prefix)"
+fi
+
 # Add shell alias (always uses the venv python)
 ALIAS_LINE="alias coding-time='${VENV}/bin/python ${SCRIPT_DIR}/cli.py'"
 SHELL_RC="$HOME/.zshrc"
