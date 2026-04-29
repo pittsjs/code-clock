@@ -1,5 +1,6 @@
 {
   "generated_at": "2026-04-29",
+  "exported_at": "2026-04-29T18:02:40Z",
   "period_days": 7,
   "summary": {
     "total_hours": 19.8,
@@ -27,7 +28,7 @@
     },
     {
       "date": "2026-04-29",
-      "hours": 1.56
+      "hours": 1.61
     }
   ],
   "projects": [
@@ -37,7 +38,7 @@
     },
     {
       "name": "pittsjs",
-      "hours": 0.68
+      "hours": 0.72
     },
     {
       "name": "cop-gis-OneStop-Guide",
@@ -51,7 +52,7 @@
   "apps": [
     {
       "name": "Cursor",
-      "hours": 14.09
+      "hours": 14.14
     },
     {
       "name": "Claude",
