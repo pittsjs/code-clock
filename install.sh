@@ -15,101 +15,43 @@ PYTHON="$VENV/bin/python"
 echo "==> Installing Python dependencies..."
 "$PYTHON" -m pip install -q --upgrade click rich
 
+render_launchd_plist() {
+  local template_path="$1"
+  local dest_path="$2"
+  "$PYTHON" - "$SCRIPT_DIR" "$HOME" "$PYTHON" "$template_path" "$dest_path" <<'PY'
+import pathlib
+import sys
+
+script_dir, home, py, src, dst = sys.argv[1:6]
+text = pathlib.Path(src).read_text(encoding="utf-8")
+text = text.replace("__SCRIPT_DIR__", script_dir)
+text = text.replace("__HOME__", home)
+text = text.replace("__PYTHON__", py)
+pathlib.Path(dst).write_text(text, encoding="utf-8")
+PY
+}
+
 echo "==> Writing launchd plist to $PLIST_DEST"
-cat > "$PLIST_DEST" <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>Label</key>
-    <string>${PLIST_LABEL}</string>
-    <key>ProgramArguments</key>
-    <array>
-        <string>${PYTHON}</string>
-        <string>${SCRIPT_DIR}/tracker.py</string>
-    </array>
-    <key>WorkingDirectory</key>
-    <string>${SCRIPT_DIR}</string>
-    <key>RunAtLoad</key>
-    <true/>
-    <key>KeepAlive</key>
-    <true/>
-    <key>StandardOutPath</key>
-    <string>${HOME}/.coding_tracker_stdout.log</string>
-    <key>StandardErrorPath</key>
-    <string>${HOME}/.coding_tracker_stderr.log</string>
-</dict>
-</plist>
-EOF
+render_launchd_plist "$SCRIPT_DIR/templates/launchd/com.user.codingtracker.plist" "$PLIST_DEST"
 
 echo "==> Loading daemon..."
 launchctl unload "$PLIST_DEST" 2>/dev/null || true
 launchctl load "$PLIST_DEST"
 
 echo "==> Writing nightly stats plist to $STATS_PLIST_DEST"
-cat > "$STATS_PLIST_DEST" <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>Label</key>
-    <string>${STATS_PLIST_LABEL}</string>
-    <key>ProgramArguments</key>
-    <array>
-        <string>/bin/bash</string>
-        <string>${SCRIPT_DIR}/scripts/push_stats.sh</string>
-    </array>
-    <key>WorkingDirectory</key>
-    <string>${SCRIPT_DIR}</string>
-    <key>WatchPaths</key>
-    <array>
-        <string>${HOME}/.coding_tracker.db</string>
-        <string>${HOME}/.coding_tracker.db-wal</string>
-        <string>${HOME}/.coding_tracker.db-shm</string>
-    </array>
-    <key>ThrottleInterval</key>
-    <integer>300</integer>
-    <key>RunAtLoad</key>
-    <true/>
-    <key>StartInterval</key>
-    <integer>3600</integer>
-    <key>StartCalendarInterval</key>
-    <array>
-        <dict>
-            <key>Hour</key>
-            <integer>13</integer>
-            <key>Minute</key>
-            <integer>30</integer>
-        </dict>
-        <dict>
-            <key>Hour</key>
-            <integer>20</integer>
-            <key>Minute</key>
-            <integer>30</integer>
-        </dict>
-    </array>
-    <key>StandardOutPath</key>
-    <string>${HOME}/.coding_tracker_stats_stdout.log</string>
-    <key>StandardErrorPath</key>
-    <string>${HOME}/.coding_tracker_stats_stderr.log</string>
-</dict>
-</plist>
-EOF
+render_launchd_plist "$SCRIPT_DIR/templates/launchd/com.user.codingtracker.stats.plist" "$STATS_PLIST_DEST"
 
 echo "==> Loading stats job..."
 launchctl unload "$STATS_PLIST_DEST" 2>/dev/null || true
 launchctl load "$STATS_PLIST_DEST"
 
-# Install commit-msg hook to enforce vX.Y.Z prefix on every commit.
+# Git hooks (this repo only)
 if [ -d "$SCRIPT_DIR/.git" ]; then
-    HOOK_SRC="$SCRIPT_DIR/scripts/commit-msg-hook.sh"
-    HOOK_DEST="$SCRIPT_DIR/.git/hooks/commit-msg"
-    chmod +x "$HOOK_SRC"
-    cp "$HOOK_SRC" "$HOOK_DEST"
-    chmod +x "$HOOK_DEST"
-    echo "==> Installed commit-msg hook (enforces vX.Y.Z prefix)"
+    chmod +x "$SCRIPT_DIR/scripts/commit-msg-hook.sh"
+    cp "$SCRIPT_DIR/scripts/commit-msg-hook.sh" "$SCRIPT_DIR/.git/hooks/commit-msg"
+    chmod +x "$SCRIPT_DIR/.git/hooks/commit-msg"
+    rm -f "$SCRIPT_DIR/.git/hooks/prepare-commit-msg"
+    echo "==> Installed commit-msg hook (strip IDE footers; enforce vX.Y.Z prefix)"
 fi
 
 # Add shell alias (always uses the venv python)

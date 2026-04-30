@@ -260,18 +260,38 @@ The launchd plist and shell alias both contain absolute paths set during `instal
 - [ ] Time-of-day heatmap (hour × day-of-week grid showing your peak coding hours)
 - [ ] Web UI with persistent history
 
+## Repository layout
+
+```
+code-clock/
+├── README.md                 # This file
+├── LICENSE
+├── requirements.txt          # Python deps (tracker needs PyObjC; install adds click/rich)
+├── install.sh                # venv, LaunchAgents, git hooks, shell alias
+├── tracker.py                # Background daemon (poll frontmost app)
+├── db.py                     # SQLite access (~/.coding_tracker.db)
+├── cli.py                    # `coding-time` commands
+├── dashboard.py              # HTML report generator
+├── config.py                 # Tracked apps, paths, intervals
+├── stats.json                # Exported weekly stats (committed for GitHub raw URL)
+├── templates/
+│   └── launchd/              # LaunchAgent XML templates (__SCRIPT_DIR__, __HOME__, __PYTHON__)
+│       ├── com.user.codingtracker.plist
+│       └── com.user.codingtracker.stats.plist
+└── scripts/
+    ├── push_stats.sh         # Export stats.json + git push (+ optional gh dispatch)
+    └── commit-msg-hook.sh    # Strips “Made with: …” footers; requires `vX.Y.Z:` subject
+```
+
+`install.sh` renders the plist templates into `~/Library/LaunchAgents/` with your real paths.
+
 ## Contributing
 
-PRs welcome. The codebase is intentionally small:
+PRs welcome. The codebase stays small on purpose.
 
-| File | Purpose |
-|------|---------|
-| `tracker.py` | Background daemon — polls the frontmost app, flushes sessions |
-| `db.py` | SQLite read/write layer |
-| `cli.py` | CLI commands (`today`, `week`, `projects`, `timeline`, `dashboard`, `export`) |
-| `dashboard.py` | Self-contained HTML report generator |
-| `config.py` | Tracked app list and tunable settings |
-| `scripts/push_stats.sh` | Nightly stats export and git push |
+**Commits in this repo:** subjects must start with **`vX.Y.Z:`** (enforced by `scripts/commit-msg-hook.sh` after `install.sh`). That hook also **drops lines** such as “Made with: Cursor” from the commit message body so they never land on `main`.
+
+**Rewriting old commits** on `main` to remove past footers would require a history rewrite (e.g. `git filter-repo`); that is not done automatically here.
 
 ## License
 
