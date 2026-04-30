@@ -41,3 +41,19 @@ fi
 git commit -m "$NEXT_VER: update stats [skip ci]"
 git push
 echo "Stats pushed to GitHub as $NEXT_VER"
+
+# Immediately refresh profile README — uses GitHub CLI if available (launchd often has no PATH).
+GH_BIN="$(command -v gh 2>/dev/null || true)"
+[ -z "$GH_BIN" ] && [ -x /opt/homebrew/bin/gh ] && GH_BIN=/opt/homebrew/bin/gh
+[ -z "$GH_BIN" ] && [ -x /usr/local/bin/gh ] && GH_BIN=/usr/local/bin/gh
+
+_profile_repo="${PROFILE_STATS_DISPATCH_REPO:-pittsjs/pittsjs}"
+_event="${PROFILE_STATS_DISPATCH_EVENT:-coding-stats-updated}"
+if [ "${PROFILE_STATS_DISABLE_DISPATCH:-0}" != "1" ] && [ -n "$GH_BIN" ]; then
+  if printf '%s\n' "{\"event_type\":\"${_event}\"}" | "$GH_BIN" api \
+      --method POST \
+      "repos/${_profile_repo}/dispatches" \
+      --input - >/dev/null 2>&1; then
+    echo "Dispatched profile workflow (${_profile_repo})"
+  fi
+fi

@@ -71,6 +71,10 @@ cat > "$STATS_PLIST_DEST" <<EOF
     </array>
     <key>ThrottleInterval</key>
     <integer>300</integer>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>StartInterval</key>
+    <integer>3600</integer>
     <key>StartCalendarInterval</key>
     <array>
         <dict>
