@@ -1,19 +1,15 @@
 {
-  "generated_at": "2026-04-29",
-  "exported_at": "2026-04-29T19:56:18Z",
+  "generated_at": "2026-04-30",
+  "exported_at": "2026-04-30T16:14:32Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 20.0,
-    "daily_avg_hours": 4.0,
+    "total_hours": 18.0,
+    "daily_avg_hours": 3.6,
     "days_active": 5,
-    "streak_days": 3,
-    "top_project": "Project-Portfolio-Samuel-Settie"
+    "streak_days": 4,
+    "top_project": "pittsjs"
   },
   "daily": [
-    {
-      "date": "2026-04-23",
-      "hours": 2.68
-    },
     {
       "date": "2026-04-25",
       "hours": 5.65
@@ -28,17 +24,25 @@
     },
     {
       "date": "2026-04-29",
-      "hours": 1.75
+      "hours": 2.26
+    },
+    {
+      "date": "2026-04-30",
+      "hours": 0.18
     }
   ],
   "projects": [
+    {
+      "name": "pittsjs",
+      "hours": 1.09
+    },
     {
       "name": "Project-Portfolio-Samuel-Settie",
       "hours": 1.01
     },
     {
-      "name": "pittsjs",
-      "hours": 0.86
+      "name": "code-clock",
+      "hours": 0.18
     },
     {
       "name": "cop-gis-OneStop-Guide",
@@ -52,11 +56,11 @@
   "apps": [
     {
       "name": "Cursor",
-      "hours": 14.28
+      "hours": 12.02
     },
     {
       "name": "Claude",
-      "hours": 5.67
+      "hours": 5.94
     },
     {
       "name": "Terminal",
