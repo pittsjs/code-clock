@@ -1,10 +1,10 @@
 {
   "generated_at": "2026-04-30",
-  "exported_at": "2026-04-30T16:44:22Z",
+  "exported_at": "2026-04-30T17:14:30Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 18.1,
-    "daily_avg_hours": 3.6,
+    "total_hours": 18.4,
+    "daily_avg_hours": 3.7,
     "days_active": 5,
     "streak_days": 4,
     "top_project": "pittsjs"
@@ -28,7 +28,7 @@
     },
     {
       "date": "2026-04-30",
-      "hours": 0.32
+      "hours": 0.62
     }
   ],
   "projects": [
@@ -60,7 +60,7 @@
     },
     {
       "name": "Claude",
-      "hours": 5.94
+      "hours": 6.24
     },
     {
       "name": "Terminal",
