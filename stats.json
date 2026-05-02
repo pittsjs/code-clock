@@ -1,19 +1,15 @@
 {
-  "generated_at": "2026-05-01",
-  "exported_at": "2026-05-02T00:31:27Z",
+  "generated_at": "2026-05-02",
+  "exported_at": "2026-05-02T17:43:04Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 18.4,
-    "daily_avg_hours": 3.7,
-    "days_active": 5,
-    "streak_days": 4,
+    "total_hours": 12.8,
+    "daily_avg_hours": 3.2,
+    "days_active": 4,
+    "streak_days": 0,
     "top_project": "pittsjs"
   },
   "daily": [
-    {
-      "date": "2026-04-25",
-      "hours": 5.65
-    },
     {
       "date": "2026-04-27",
       "hours": 8.01
@@ -56,11 +52,11 @@
   "apps": [
     {
       "name": "Cursor",
-      "hours": 12.16
+      "hours": 6.59
     },
     {
       "name": "Claude",
-      "hours": 6.24
+      "hours": 6.15
     },
     {
       "name": "Terminal",
