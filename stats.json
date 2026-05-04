@@ -1,19 +1,15 @@
 {
-  "generated_at": "2026-05-03",
-  "exported_at": "2026-05-04T00:44:09Z",
+  "generated_at": "2026-05-04",
+  "exported_at": "2026-05-04T17:46:27Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 12.8,
-    "daily_avg_hours": 3.2,
-    "days_active": 4,
+    "total_hours": 4.7,
+    "daily_avg_hours": 1.6,
+    "days_active": 3,
     "streak_days": 0,
     "top_project": "pittsjs"
   },
   "daily": [
-    {
-      "date": "2026-04-27",
-      "hours": 8.01
-    },
     {
       "date": "2026-04-28",
       "hours": 1.86
@@ -33,38 +29,26 @@
       "hours": 1.09
     },
     {
-      "name": "Project-Portfolio-Samuel-Settie",
-      "hours": 1.01
-    },
-    {
       "name": "code-clock",
       "hours": 0.33
     },
     {
-      "name": "cop-gis-OneStop-Guide",
-      "hours": 0.03
+      "name": "Project-Portfolio-Samuel-Settie",
+      "hours": 0.28
     },
     {
-      "name": "coding time tracker",
-      "hours": 0.02
+      "name": "cop-gis-OneStop-Guide",
+      "hours": 0.03
     }
   ],
   "apps": [
     {
-      "name": "Cursor",
-      "hours": 6.59
-    },
-    {
       "name": "Claude",
-      "hours": 6.15
+      "hours": 2.95
     },
     {
-      "name": "Terminal",
-      "hours": 0.0
-    },
-    {
-      "name": "VS Code",
-      "hours": 0.0
+      "name": "Cursor",
+      "hours": 1.8
     }
   ]
 }
