@@ -1,19 +1,15 @@
 {
-  "generated_at": "2026-05-04",
-  "exported_at": "2026-05-05T00:33:29Z",
+  "generated_at": "2026-05-05",
+  "exported_at": "2026-05-05T23:03:29Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 4.7,
-    "daily_avg_hours": 1.6,
-    "days_active": 3,
+    "total_hours": 2.9,
+    "daily_avg_hours": 1.4,
+    "days_active": 2,
     "streak_days": 0,
     "top_project": "pittsjs"
   },
   "daily": [
-    {
-      "date": "2026-04-28",
-      "hours": 1.86
-    },
     {
       "date": "2026-04-29",
       "hours": 2.26
@@ -26,29 +22,21 @@
   "projects": [
     {
       "name": "pittsjs",
-      "hours": 1.09
+      "hours": 1.06
     },
     {
       "name": "code-clock",
       "hours": 0.33
-    },
-    {
-      "name": "Project-Portfolio-Samuel-Settie",
-      "hours": 0.28
-    },
-    {
-      "name": "cop-gis-OneStop-Guide",
-      "hours": 0.03
     }
   ],
   "apps": [
     {
       "name": "Claude",
-      "hours": 2.95
+      "hours": 1.5
     },
     {
       "name": "Cursor",
-      "hours": 1.8
+      "hours": 1.39
     }
   ]
 }
