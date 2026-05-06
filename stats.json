@@ -1,19 +1,15 @@
 {
-  "generated_at": "2026-05-05",
-  "exported_at": "2026-05-06T00:32:40Z",
+  "generated_at": "2026-05-06",
+  "exported_at": "2026-05-06T15:05:35Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 3.2,
-    "daily_avg_hours": 1.1,
+    "total_hours": 1.1,
+    "daily_avg_hours": 0.4,
     "days_active": 3,
-    "streak_days": 1,
-    "top_project": "pittsjs"
+    "streak_days": 2,
+    "top_project": "code-clock"
   },
   "daily": [
-    {
-      "date": "2026-04-29",
-      "hours": 2.26
-    },
     {
       "date": "2026-04-30",
       "hours": 0.62
@@ -21,26 +17,30 @@
     {
       "date": "2026-05-05",
       "hours": 0.31
+    },
+    {
+      "date": "2026-05-06",
+      "hours": 0.2
     }
   ],
   "projects": [
     {
-      "name": "pittsjs",
-      "hours": 1.06
+      "name": "code-clock",
+      "hours": 0.34
     },
     {
-      "name": "code-clock",
-      "hours": 0.33
+      "name": "cop-gis-OneStop-Guide",
+      "hours": 0.18
     }
   ],
   "apps": [
     {
       "name": "Claude",
-      "hours": 1.8
+      "hours": 0.61
     },
     {
       "name": "Cursor",
-      "hours": 1.39
+      "hours": 0.51
     }
   ]
 }
