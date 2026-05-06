@@ -1,9 +1,9 @@
 {
   "generated_at": "2026-05-06",
-  "exported_at": "2026-05-06T17:10:29Z",
+  "exported_at": "2026-05-06T17:48:22Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 2.0,
+    "total_hours": 2.2,
     "daily_avg_hours": 0.7,
     "days_active": 3,
     "streak_days": 2,
@@ -20,13 +20,13 @@
     },
     {
       "date": "2026-05-06",
-      "hours": 1.11
+      "hours": 1.25
     }
   ],
   "projects": [
     {
       "name": "cop-gis-OneStop-Guide",
-      "hours": 1.09
+      "hours": 1.23
     },
     {
       "name": "code-clock",
@@ -36,7 +36,7 @@
   "apps": [
     {
       "name": "Cursor",
-      "hours": 1.42
+      "hours": 1.57
     },
     {
       "name": "Claude",
