@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-07",
-  "exported_at": "2026-05-08T03:42:17Z",
+  "generated_at": "2026-05-08",
+  "exported_at": "2026-05-08T18:22:50Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 2.1,
-    "daily_avg_hours": 0.7,
-    "days_active": 3,
-    "streak_days": 3,
+    "total_hours": 2.2,
+    "daily_avg_hours": 0.5,
+    "days_active": 4,
+    "streak_days": 4,
     "top_project": "cop-gis-OneStop-Guide"
   },
   "daily": [
@@ -21,6 +21,10 @@
     {
       "date": "2026-05-07",
       "hours": 0.59
+    },
+    {
+      "date": "2026-05-08",
+      "hours": 0.03
     }
   ],
   "projects": [
@@ -40,7 +44,7 @@
     },
     {
       "name": "Claude",
-      "hours": 0.89
+      "hours": 0.92
     }
   ]
 }
