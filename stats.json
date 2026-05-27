@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-05-26",
-  "exported_at": "2026-05-27T02:58:14Z",
+  "generated_at": "2026-05-27",
+  "exported_at": "2026-05-27T13:46:12Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 5.2,
-    "daily_avg_hours": 2.6,
-    "days_active": 2,
-    "streak_days": 2,
+    "total_hours": 5.3,
+    "daily_avg_hours": 1.8,
+    "days_active": 3,
+    "streak_days": 3,
     "top_project": null
   },
   "daily": [
@@ -17,13 +17,17 @@
     {
       "date": "2026-05-26",
       "hours": 5.21
+    },
+    {
+      "date": "2026-05-27",
+      "hours": 0.13
     }
   ],
   "projects": [],
   "apps": [
     {
       "name": "Claude",
-      "hours": 5.21
+      "hours": 5.34
     }
   ]
 }
