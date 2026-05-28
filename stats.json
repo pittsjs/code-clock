@@ -1,12 +1,12 @@
 {
   "generated_at": "2026-05-28",
-  "exported_at": "2026-05-28T14:04:11Z",
+  "exported_at": "2026-05-28T16:36:20Z",
   "period_days": 7,
   "summary": {
     "total_hours": 6.3,
-    "daily_avg_hours": 2.1,
-    "days_active": 3,
-    "streak_days": 3,
+    "daily_avg_hours": 1.6,
+    "days_active": 4,
+    "streak_days": 4,
     "top_project": "cop-gis-OneStop-Guide"
   },
   "daily": [
@@ -21,12 +21,20 @@
     {
       "date": "2026-05-27",
       "hours": 1.08
+    },
+    {
+      "date": "2026-05-28",
+      "hours": 0.0
     }
   ],
   "projects": [
     {
       "name": "cop-gis-OneStop-Guide",
       "hours": 0.25
+    },
+    {
+      "name": "jktt-manager",
+      "hours": 0.0
     }
   ],
   "apps": [
