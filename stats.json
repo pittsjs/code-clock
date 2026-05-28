@@ -1,9 +1,9 @@
 {
   "generated_at": "2026-05-28",
-  "exported_at": "2026-05-28T21:07:30Z",
+  "exported_at": "2026-05-28T21:11:14Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 6.3,
+    "total_hours": 6.4,
     "daily_avg_hours": 1.6,
     "days_active": 4,
     "streak_days": 4,
@@ -24,7 +24,7 @@
     },
     {
       "date": "2026-05-28",
-      "hours": 0.05
+      "hours": 0.09
     }
   ],
   "projects": [
@@ -34,7 +34,11 @@
     },
     {
       "name": "jktt-manager",
-      "hours": 0.0
+      "hours": 0.04
+    },
+    {
+      "name": "80\u00d724",
+      "hours": 0.01
     }
   ],
   "apps": [
@@ -44,7 +48,11 @@
     },
     {
       "name": "Cursor",
-      "hours": 0.41
+      "hours": 0.45
+    },
+    {
+      "name": "Terminal",
+      "hours": 0.01
     }
   ]
 }
