@@ -1,12 +1,12 @@
 {
   "generated_at": "2026-06-01",
-  "exported_at": "2026-06-01T16:21:52Z",
+  "exported_at": "2026-06-01T16:53:14Z",
   "period_days": 7,
   "summary": {
     "total_hours": 6.4,
-    "daily_avg_hours": 2.1,
-    "days_active": 3,
-    "streak_days": 0,
+    "daily_avg_hours": 1.6,
+    "days_active": 4,
+    "streak_days": 1,
     "top_project": "cop-gis-OneStop-Guide"
   },
   "daily": [
@@ -21,6 +21,10 @@
     {
       "date": "2026-05-28",
       "hours": 0.09
+    },
+    {
+      "date": "2026-06-01",
+      "hours": 0.01
     }
   ],
   "projects": [
@@ -34,7 +38,7 @@
     },
     {
       "name": "80\u00d724",
-      "hours": 0.01
+      "hours": 0.02
     }
   ],
   "apps": [
@@ -48,7 +52,7 @@
     },
     {
       "name": "Terminal",
-      "hours": 0.01
+      "hours": 0.02
     }
   ]
 }
