@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-06-02",
-  "exported_at": "2026-06-02T17:34:43Z",
+  "exported_at": "2026-06-02T17:47:07Z",
   "period_days": 7,
   "summary": {
     "total_hours": 1.8,
@@ -38,7 +38,7 @@
     },
     {
       "name": "80\u00d724",
-      "hours": 0.02
+      "hours": 0.03
     }
   ],
   "apps": [
@@ -52,7 +52,7 @@
     },
     {
       "name": "Terminal",
-      "hours": 0.02
+      "hours": 0.03
     }
   ]
 }
