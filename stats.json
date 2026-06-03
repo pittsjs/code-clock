@@ -1,19 +1,15 @@
 {
-  "generated_at": "2026-06-02",
-  "exported_at": "2026-06-03T00:30:06Z",
+  "generated_at": "2026-06-03",
+  "exported_at": "2026-06-03T17:30:04Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 1.8,
-    "daily_avg_hours": 0.5,
-    "days_active": 4,
+    "total_hours": 0.8,
+    "daily_avg_hours": 0.3,
+    "days_active": 3,
     "streak_days": 2,
-    "top_project": "cop-gis-OneStop-Guide"
+    "top_project": "jktt-manager"
   },
   "daily": [
-    {
-      "date": "2026-05-27",
-      "hours": 1.08
-    },
     {
       "date": "2026-05-28",
       "hours": 0.09
@@ -29,10 +25,6 @@
   ],
   "projects": [
     {
-      "name": "cop-gis-OneStop-Guide",
-      "hours": 0.25
-    },
-    {
       "name": "jktt-manager",
       "hours": 0.04
     },
@@ -44,11 +36,11 @@
   "apps": [
     {
       "name": "Claude",
-      "hours": 1.37
+      "hours": 0.7
     },
     {
       "name": "Cursor",
-      "hours": 0.45
+      "hours": 0.04
     },
     {
       "name": "Terminal",
