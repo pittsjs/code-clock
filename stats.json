@@ -1,19 +1,15 @@
 {
-  "generated_at": "2026-06-03",
-  "exported_at": "2026-06-04T00:40:10Z",
+  "generated_at": "2026-06-04",
+  "exported_at": "2026-06-04T14:53:25Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 0.8,
+    "total_hours": 0.7,
     "daily_avg_hours": 0.3,
-    "days_active": 3,
-    "streak_days": 2,
-    "top_project": "jktt-manager"
+    "days_active": 2,
+    "streak_days": 0,
+    "top_project": "80\u00d724"
   },
   "daily": [
-    {
-      "date": "2026-05-28",
-      "hours": 0.09
-    },
     {
       "date": "2026-06-01",
       "hours": 0.01
@@ -25,26 +21,18 @@
   ],
   "projects": [
     {
-      "name": "jktt-manager",
-      "hours": 0.04
-    },
-    {
       "name": "80\u00d724",
-      "hours": 0.03
+      "hours": 0.02
     }
   ],
   "apps": [
     {
       "name": "Claude",
-      "hours": 0.7
-    },
-    {
-      "name": "Cursor",
-      "hours": 0.04
+      "hours": 0.65
     },
     {
       "name": "Terminal",
-      "hours": 0.03
+      "hours": 0.02
     }
   ]
 }
