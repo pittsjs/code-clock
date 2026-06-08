@@ -1,19 +1,15 @@
 {
-  "generated_at": "2026-06-07",
-  "exported_at": "2026-06-08T00:45:15Z",
+  "generated_at": "2026-06-08",
+  "exported_at": "2026-06-08T13:26:59Z",
   "period_days": 7,
   "summary": {
     "total_hours": 0.7,
-    "daily_avg_hours": 0.3,
-    "days_active": 2,
+    "daily_avg_hours": 0.7,
+    "days_active": 1,
     "streak_days": 0,
     "top_project": "80\u00d724"
   },
   "daily": [
-    {
-      "date": "2026-06-01",
-      "hours": 0.01
-    },
     {
       "date": "2026-06-02",
       "hours": 0.66
@@ -22,7 +18,7 @@
   "projects": [
     {
       "name": "80\u00d724",
-      "hours": 0.02
+      "hours": 0.0
     }
   ],
   "apps": [
@@ -32,7 +28,7 @@
     },
     {
       "name": "Terminal",
-      "hours": 0.02
+      "hours": 0.01
     }
   ]
 }
