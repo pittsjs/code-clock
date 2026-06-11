@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-06-11",
-  "exported_at": "2026-06-11T16:53:55Z",
+  "exported_at": "2026-06-11T17:02:28Z",
   "period_days": 7,
   "summary": {
     "total_hours": 0.8,
@@ -12,19 +12,19 @@
   "daily": [
     {
       "date": "2026-06-11",
-      "hours": 0.76
+      "hours": 0.78
     }
   ],
   "projects": [
     {
       "name": "cop-gis-OneStop-Guide",
-      "hours": 0.76
+      "hours": 0.78
     }
   ],
   "apps": [
     {
       "name": "Cursor",
-      "hours": 0.76
+      "hours": 0.78
     }
   ]
 }
