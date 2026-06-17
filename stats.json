@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-06-15",
-  "exported_at": "2026-06-15T21:30:14Z",
+  "generated_at": "2026-06-17",
+  "exported_at": "2026-06-17T15:09:53Z",
   "period_days": 7,
   "summary": {
     "total_hours": 1.9,
     "daily_avg_hours": 0.9,
     "days_active": 2,
-    "streak_days": 1,
+    "streak_days": 0,
     "top_project": "cop-gis-OneStop-Guide"
   },
   "daily": [
