@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-06-17",
-  "exported_at": "2026-06-17T15:55:53Z",
+  "exported_at": "2026-06-17T16:03:01Z",
   "period_days": 7,
   "summary": {
     "total_hours": 2.0,
@@ -20,7 +20,7 @@
     },
     {
       "date": "2026-06-17",
-      "hours": 0.1
+      "hours": 0.13
     }
   ],
   "projects": [
@@ -30,13 +30,13 @@
     },
     {
       "name": "jarvis",
-      "hours": 0.1
+      "hours": 0.13
     }
   ],
   "apps": [
     {
       "name": "Cursor",
-      "hours": 1.96
+      "hours": 1.99
     }
   ]
 }
