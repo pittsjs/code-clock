@@ -1,12 +1,12 @@
 {
   "generated_at": "2026-06-17",
-  "exported_at": "2026-06-17T15:09:53Z",
+  "exported_at": "2026-06-17T15:55:53Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 1.9,
-    "daily_avg_hours": 0.9,
-    "days_active": 2,
-    "streak_days": 0,
+    "total_hours": 2.0,
+    "daily_avg_hours": 0.7,
+    "days_active": 3,
+    "streak_days": 1,
     "top_project": "cop-gis-OneStop-Guide"
   },
   "daily": [
@@ -17,18 +17,26 @@
     {
       "date": "2026-06-14",
       "hours": 0.16
+    },
+    {
+      "date": "2026-06-17",
+      "hours": 0.1
     }
   ],
   "projects": [
     {
       "name": "cop-gis-OneStop-Guide",
       "hours": 1.7
+    },
+    {
+      "name": "jarvis",
+      "hours": 0.1
     }
   ],
   "apps": [
     {
       "name": "Cursor",
-      "hours": 1.86
+      "hours": 1.96
     }
   ]
 }
