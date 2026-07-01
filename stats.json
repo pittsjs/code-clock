@@ -1,12 +1,12 @@
 {
   "generated_at": "2026-07-01",
-  "exported_at": "2026-07-01T13:12:04Z",
+  "exported_at": "2026-07-01T14:53:23Z",
   "period_days": 7,
   "summary": {
     "total_hours": 2.4,
-    "daily_avg_hours": 1.2,
-    "days_active": 2,
-    "streak_days": 1,
+    "daily_avg_hours": 0.8,
+    "days_active": 3,
+    "streak_days": 2,
     "top_project": "jarvis"
   },
   "daily": [
@@ -17,6 +17,10 @@
     {
       "date": "2026-06-30",
       "hours": 1.15
+    },
+    {
+      "date": "2026-07-01",
+      "hours": 0.01
     }
   ],
   "projects": [
