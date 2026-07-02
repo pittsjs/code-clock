@@ -1,10 +1,10 @@
 {
   "generated_at": "2026-07-02",
-  "exported_at": "2026-07-02T05:57:14Z",
+  "exported_at": "2026-07-02T07:00:19Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 7.5,
-    "daily_avg_hours": 1.9,
+    "total_hours": 7.9,
+    "daily_avg_hours": 2.0,
     "days_active": 4,
     "streak_days": 3,
     "top_project": "jarvis"
@@ -24,7 +24,7 @@
     },
     {
       "date": "2026-07-02",
-      "hours": 1.36
+      "hours": 1.67
     }
   ],
   "projects": [
@@ -40,7 +40,7 @@
     },
     {
       "name": "Claude",
-      "hours": 2.28
+      "hours": 2.59
     }
   ]
 }
