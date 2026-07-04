@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-03",
-  "exported_at": "2026-07-04T00:30:09Z",
+  "generated_at": "2026-07-04",
+  "exported_at": "2026-07-04T14:06:32Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 14.8,
-    "daily_avg_hours": 3.0,
-    "days_active": 5,
-    "streak_days": 4,
+    "total_hours": 15.6,
+    "daily_avg_hours": 2.6,
+    "days_active": 6,
+    "streak_days": 5,
     "top_project": "jarvis"
   },
   "daily": [
@@ -29,6 +29,10 @@
     {
       "date": "2026-07-03",
       "hours": 1.84
+    },
+    {
+      "date": "2026-07-04",
+      "hours": 0.75
     }
   ],
   "projects": [
@@ -44,7 +48,7 @@
   "apps": [
     {
       "name": "Claude",
-      "hours": 9.52
+      "hours": 10.27
     },
     {
       "name": "Cursor",
