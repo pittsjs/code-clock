@@ -1,19 +1,15 @@
 {
-  "generated_at": "2026-07-04",
-  "exported_at": "2026-07-05T00:35:50Z",
+  "generated_at": "2026-07-05",
+  "exported_at": "2026-07-05T06:52:56Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 17.3,
-    "daily_avg_hours": 2.9,
+    "total_hours": 16.1,
+    "daily_avg_hours": 2.7,
     "days_active": 6,
-    "streak_days": 5,
+    "streak_days": 6,
     "top_project": "jarvis"
   },
   "daily": [
-    {
-      "date": "2026-06-28",
-      "hours": 1.25
-    },
     {
       "date": "2026-06-30",
       "hours": 1.15
@@ -33,6 +29,10 @@
     {
       "date": "2026-07-04",
       "hours": 2.51
+    },
+    {
+      "date": "2026-07-05",
+      "hours": 0.0
     }
   ],
   "projects": [
@@ -42,7 +42,7 @@
     },
     {
       "name": "Cursor Agents",
-      "hours": 0.0
+      "hours": 0.01
     }
   ],
   "apps": [
@@ -52,7 +52,7 @@
     },
     {
       "name": "Cursor",
-      "hours": 5.3
+      "hours": 4.05
     }
   ]
 }
