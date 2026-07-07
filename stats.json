@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-07-07",
-  "exported_at": "2026-07-07T19:13:05Z",
+  "exported_at": "2026-07-07T19:15:27Z",
   "period_days": 7,
   "summary": {
     "total_hours": 20.4,
@@ -36,13 +36,13 @@
     },
     {
       "date": "2026-07-07",
-      "hours": 0.58
+      "hours": 0.62
     }
   ],
   "projects": [
     {
       "name": "cop-gis-OneStop-Guide",
-      "hours": 0.12
+      "hours": 0.16
     },
     {
       "name": "jarvis",
@@ -60,7 +60,7 @@
     },
     {
       "name": "Cursor",
-      "hours": 3.03
+      "hours": 3.06
     }
   ]
 }
