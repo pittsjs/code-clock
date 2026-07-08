@@ -1,9 +1,9 @@
 {
   "generated_at": "2026-07-07",
-  "exported_at": "2026-07-08T03:25:58Z",
+  "exported_at": "2026-07-08T03:44:09Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 22.4,
+    "total_hours": 22.6,
     "daily_avg_hours": 3.2,
     "days_active": 7,
     "streak_days": 8,
@@ -36,7 +36,7 @@
     },
     {
       "date": "2026-07-07",
-      "hours": 2.61
+      "hours": 2.74
     }
   ],
   "projects": [
@@ -56,7 +56,7 @@
   "apps": [
     {
       "name": "Claude",
-      "hours": 19.36
+      "hours": 19.49
     },
     {
       "name": "Cursor",
