@@ -1,19 +1,15 @@
 {
-  "generated_at": "2026-07-08",
-  "exported_at": "2026-07-09T00:30:06Z",
+  "generated_at": "2026-07-09",
+  "exported_at": "2026-07-09T17:50:53Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 19.8,
-    "daily_avg_hours": 2.8,
+    "total_hours": 13.1,
+    "daily_avg_hours": 1.9,
     "days_active": 7,
-    "streak_days": 9,
+    "streak_days": 10,
     "top_project": "cop-gis-OneStop-Guide"
   },
   "daily": [
-    {
-      "date": "2026-07-02",
-      "hours": 6.79
-    },
     {
       "date": "2026-07-03",
       "hours": 1.84
@@ -37,6 +33,10 @@
     {
       "date": "2026-07-08",
       "hours": 1.05
+    },
+    {
+      "date": "2026-07-09",
+      "hours": 0.03
     }
   ],
   "projects": [
@@ -45,22 +45,18 @@
       "hours": 0.16
     },
     {
-      "name": "jarvis",
-      "hours": 0.04
-    },
-    {
       "name": "Cursor Agents",
-      "hours": 0.01
+      "hours": 0.0
     }
   ],
   "apps": [
     {
       "name": "Claude",
-      "hours": 19.49
+      "hours": 12.89
     },
     {
       "name": "Cursor",
-      "hours": 0.32
+      "hours": 0.16
     }
   ]
 }
