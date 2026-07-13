@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-07-13",
-  "exported_at": "2026-07-13T16:24:55Z",
+  "exported_at": "2026-07-13T16:31:03Z",
   "period_days": 7,
   "summary": {
     "total_hours": 12.6,
@@ -32,13 +32,17 @@
     },
     {
       "date": "2026-07-13",
-      "hours": 0.8
+      "hours": 0.82
     }
   ],
   "projects": [
     {
       "name": "cop-gis-OneStop-Guide",
       "hours": 0.16
+    },
+    {
+      "name": "Cursor Agents",
+      "hours": 0.02
     }
   ],
   "apps": [
@@ -48,7 +52,7 @@
     },
     {
       "name": "Cursor",
-      "hours": 0.16
+      "hours": 0.18
     }
   ]
 }
