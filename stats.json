@@ -1,10 +1,10 @@
 {
   "generated_at": "2026-07-20",
-  "exported_at": "2026-07-20T20:14:34Z",
+  "exported_at": "2026-07-20T20:53:47Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 2.2,
-    "daily_avg_hours": 0.5,
+    "total_hours": 2.5,
+    "daily_avg_hours": 0.6,
     "days_active": 4,
     "streak_days": 3,
     "top_project": null
@@ -24,14 +24,14 @@
     },
     {
       "date": "2026-07-20",
-      "hours": 0.6
+      "hours": 0.93
     }
   ],
   "projects": [],
   "apps": [
     {
       "name": "Claude",
-      "hours": 2.2
+      "hours": 2.54
     }
   ]
 }
