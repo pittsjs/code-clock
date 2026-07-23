@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-22",
-  "exported_at": "2026-07-23T00:44:13Z",
+  "generated_at": "2026-07-23",
+  "exported_at": "2026-07-23T17:40:03Z",
   "period_days": 7,
   "summary": {
     "total_hours": 5.5,
     "daily_avg_hours": 1.4,
     "days_active": 4,
-    "streak_days": 4,
+    "streak_days": 0,
     "top_project": null
   },
   "daily": [
