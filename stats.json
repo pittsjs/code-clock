@@ -1,10 +1,10 @@
 {
   "generated_at": "2026-07-31",
-  "exported_at": "2026-07-31T17:44:47Z",
+  "exported_at": "2026-07-31T19:56:56Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 10.7,
-    "daily_avg_hours": 1.8,
+    "total_hours": 11.7,
+    "daily_avg_hours": 1.9,
     "days_active": 6,
     "streak_days": 5,
     "top_project": "Cursor Agents"
@@ -32,7 +32,7 @@
     },
     {
       "date": "2026-07-31",
-      "hours": 0.01
+      "hours": 0.97
     }
   ],
   "projects": [
@@ -44,7 +44,7 @@
   "apps": [
     {
       "name": "Claude",
-      "hours": 10.69
+      "hours": 11.66
     },
     {
       "name": "Cursor",
