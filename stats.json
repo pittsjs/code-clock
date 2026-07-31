@@ -1,12 +1,12 @@
 {
   "generated_at": "2026-07-31",
-  "exported_at": "2026-07-31T07:45:27Z",
+  "exported_at": "2026-07-31T14:31:59Z",
   "period_days": 7,
   "summary": {
     "total_hours": 10.7,
-    "daily_avg_hours": 2.1,
-    "days_active": 5,
-    "streak_days": 4,
+    "daily_avg_hours": 1.8,
+    "days_active": 6,
+    "streak_days": 5,
     "top_project": "Cursor Agents"
   },
   "daily": [
@@ -29,6 +29,10 @@
     {
       "date": "2026-07-30",
       "hours": 2.53
+    },
+    {
+      "date": "2026-07-31",
+      "hours": 0.01
     }
   ],
   "projects": [
