@@ -188,9 +188,34 @@ Project names are extracted from the **window title** of the active app. This on
 | Terminal / iTerm2 / Warp | ✅ | Uses current working directory |
 | JetBrains IDEs | ✅ | Project name in title bar |
 | Xcode | ✅ | Project name in title bar |
-| Claude | ❌ | Title is always just `Claude` |
+| Claude | ✅ | Title is always just `Claude` — resolved from disk instead (see below) |
 
 Apps without project detection still have their **time tracked accurately** — sessions just won't appear in `coding-time projects` or `coding-time timeline`.
+
+**Claude is a special case.** Its window title is always the literal string `Claude`, so there is nothing to parse. Claude Code does record its working directory on disk — one directory per project under `~/.claude/projects/`, named for the path with slashes rewritten as dashes (`-Users-you-github-myrepo`). The most recently written session log there is the project in use, so Claude time is attributed that way. If the newest log is older than `CLAUDE_PROJECT_MAX_AGE_SECS` (default 15 min) the time is recorded with no project, on the assumption Claude is open but idle.
+
+Window titles that name a **pane rather than a project** — `Cursor Agents`, `Settings`, `Welcome` — and terminal geometries like `80×24` are rejected via `PROJECT_TITLE_BLOCKLIST` in [`config.py`](config.py).
+
+### Export Privacy
+
+⚠️ **Project names come from window titles and local file paths, so they include the names of private and client repositories.** `stats.json` is normally committed to a *public* repo so a profile README can read it — which publishes those names.
+
+**Export is therefore deny-by-default.** A project is published under its real name only if you list it:
+
+```python
+# config.py
+EXPORT_PROJECT_ALIASES = {
+    "code-clock": "code-clock",     # real name -> published label
+    "my-startup": "Client work",    # or publish under a different label
+}
+EXPORT_REDACT_LABEL = "Private project"   # everything else; None to omit entirely
+EXPORT_PUBLISH_ALL_PROJECTS = False       # True disables redaction
+EXPORT_MIN_TOP_PROJECT_SECS = 1800        # don't headline a 2-minute project
+```
+
+Everything not in the map is merged into a single `Private project` bucket, so the **hours still count** but the names never leave your machine.
+
+This affects **`export` only**. Local reporting — `today`, `week`, `projects`, `timeline`, the HTML dashboard — always shows real names.
 
 ### Supported Apps
 

@@ -13,10 +13,14 @@ from datetime import datetime
 
 from config import (
     APP_DISPLAY_NAMES,
+    CLAUDE_PROJECT_MAX_AGE_SECS,
+    CLAUDE_PROJECTS_DIR,
     CODING_APPS,
     IDLE_THRESHOLD_SECS,
     LOG_PATH,
     POLL_INTERVAL_SECS,
+    PROJECT_TITLE_BLOCKLIST,
+    PROJECT_TITLE_REJECT_PATTERN,
     STATS_PUSH_DEBOUNCE_SECS,
 )
 from db import init_db, save_session
@@ -68,7 +72,59 @@ def get_active_window() -> tuple[str, str]:
         return "", ""
 
 
+def _claude_project() -> str | None:
+    """Project for Claude time, read from Claude Code's own session logs.
+
+    Claude's window title is always just "Claude", so the title tells us
+    nothing. Claude Code writes per-project session logs under
+    CLAUDE_PROJECTS_DIR, named for the working directory with slashes turned
+    into dashes; the most recently touched one is the project in use.
+    """
+    try:
+        newest_dir, newest_mtime = None, 0.0
+        for entry in os.scandir(CLAUDE_PROJECTS_DIR):
+            if not entry.is_dir():
+                continue
+            for log in os.scandir(entry.path):
+                if not log.name.endswith(".jsonl"):
+                    continue
+                mtime = log.stat().st_mtime
+                if mtime > newest_mtime:
+                    newest_dir, newest_mtime = entry.name, mtime
+    except OSError:
+        return None
+
+    if newest_dir is None:
+        return None
+    if time.time() - newest_mtime > CLAUDE_PROJECT_MAX_AGE_SECS:
+        return None
+
+    # "-Users-ss-github-jarvis" -> "jarvis"
+    name = newest_dir.rstrip("-").rsplit("-", 1)[-1]
+    return name or None
+
+
+def _is_junk_project(name: str) -> bool:
+    import re
+
+    if name.lower() in PROJECT_TITLE_BLOCKLIST:
+        return True
+    return bool(re.match(PROJECT_TITLE_REJECT_PATTERN, name))
+
+
 def extract_project(app: str, title: str) -> str | None:
+    """Best-effort project name for the active app."""
+    if app == "Claude":
+        name = _claude_project()
+    else:
+        name = _project_from_title(app, title)
+
+    if name is None or _is_junk_project(name):
+        return None
+    return name
+
+
+def _project_from_title(app: str, title: str) -> str | None:
     """Best-effort project name from window title."""
     if not title:
         return None
