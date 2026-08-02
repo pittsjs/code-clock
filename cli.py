@@ -7,6 +7,14 @@ import sys
 from datetime import date, datetime, timedelta, timezone
 
 import click
+from config import (
+    EXPORT_MIN_TOP_PROJECT_SECS,
+    EXPORT_PROJECT_ALIASES,
+    EXPORT_PUBLISH_ALL_PROJECTS,
+    EXPORT_REDACT_LABEL,
+    PROJECT_TITLE_BLOCKLIST,
+    PROJECT_TITLE_REJECT_PATTERN,
+)
 from rich import box
 from rich.console import Console
 from rich.panel import Panel
@@ -208,6 +216,39 @@ def dashboard():
     subprocess.run(["open", path])
 
 
+def _redact_projects(projects_data):
+    """Apply the export allowlist to project rows.
+
+    stats.json is meant to be committed publicly, but project names come from
+    window titles and local paths — so private and client repo names end up in
+    it unless they are filtered here. Returns (rows, top_project).
+    """
+    import re
+
+    kept: dict[str, float] = {}
+    for r in projects_data:
+        name, secs = r["project"], r["total"]
+        if name.lower() in PROJECT_TITLE_BLOCKLIST or re.match(
+            PROJECT_TITLE_REJECT_PATTERN, name
+        ):
+            continue  # pane titles and window geometries recorded before the fix
+        if EXPORT_PUBLISH_ALL_PROJECTS:
+            label = name
+        elif name in EXPORT_PROJECT_ALIASES:
+            label = EXPORT_PROJECT_ALIASES[name]
+        elif EXPORT_REDACT_LABEL is None:
+            continue
+        else:
+            label = EXPORT_REDACT_LABEL
+        kept[label] = kept.get(label, 0.0) + secs
+
+    rows = sorted(kept.items(), key=lambda kv: kv[1], reverse=True)
+
+    # A top project drawn from a couple of minutes is noise, not a headline.
+    top = rows[0][0] if rows and rows[0][1] >= EXPORT_MIN_TOP_PROJECT_SECS else None
+    return rows, top
+
+
 @cli.command()
 @click.option("--days", default=7, show_default=True, help="Stats period in days")
 @click.option("--output", "-o", default=None, help="Write to file instead of stdout")
@@ -217,6 +258,7 @@ def export(days, output):
     daily = get_daily_totals(days)
     projects_data = get_project_totals(days)
     apps_data = get_app_totals(days)
+    project_rows, top_project = _redact_projects(projects_data)
 
     payload = {
         "generated_at": date.today().isoformat(),
@@ -229,14 +271,13 @@ def export(days, output):
             ),
             "days_active": summary["days_active"],
             "streak_days": summary["streak"],
-            "top_project": summary["top_project"],
+            "top_project": top_project,
         },
         "daily": [
             {"date": r["day"], "hours": round(r["total"] / 3600, 2)} for r in daily
         ],
         "projects": [
-            {"name": r["project"], "hours": round(r["total"] / 3600, 2)}
-            for r in projects_data
+            {"name": name, "hours": round(secs / 3600, 2)} for name, secs in project_rows
         ],
         "apps": [
             {"name": r["app"], "hours": round(r["total"] / 3600, 2)} for r in apps_data
