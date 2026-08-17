@@ -1,12 +1,12 @@
 {
   "generated_at": "2026-08-17",
-  "exported_at": "2026-08-17T04:23:46Z",
+  "exported_at": "2026-08-17T14:39:04Z",
   "period_days": 7,
   "summary": {
     "total_hours": 10.2,
-    "daily_avg_hours": 1.7,
-    "days_active": 6,
-    "streak_days": 8,
+    "daily_avg_hours": 1.5,
+    "days_active": 7,
+    "streak_days": 9,
     "top_project": "Private project"
   },
   "daily": [
@@ -33,6 +33,10 @@
     {
       "date": "2026-08-16",
       "hours": 1.79
+    },
+    {
+      "date": "2026-08-17",
+      "hours": 0.02
     }
   ],
   "projects": [
@@ -44,7 +48,7 @@
   "apps": [
     {
       "name": "Cursor",
-      "hours": 6.64
+      "hours": 6.67
     },
     {
       "name": "Claude",
