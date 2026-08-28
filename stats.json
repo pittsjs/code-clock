@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-08-28",
-  "exported_at": "2026-08-28T16:10:08Z",
+  "exported_at": "2026-08-28T16:17:38Z",
   "period_days": 7,
   "summary": {
     "total_hours": 3.8,
@@ -32,7 +32,7 @@
     },
     {
       "name": "Claude",
-      "hours": 1.51
+      "hours": 1.52
     }
   ]
 }
