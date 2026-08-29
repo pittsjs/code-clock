@@ -1,12 +1,12 @@
 {
   "generated_at": "2026-08-29",
-  "exported_at": "2026-08-29T08:40:20Z",
+  "exported_at": "2026-08-29T13:21:15Z",
   "period_days": 7,
   "summary": {
     "total_hours": 16.0,
-    "daily_avg_hours": 8.0,
-    "days_active": 2,
-    "streak_days": 2,
+    "daily_avg_hours": 5.3,
+    "days_active": 3,
+    "streak_days": 3,
     "top_project": "Private project"
   },
   "daily": [
@@ -17,6 +17,10 @@
     {
       "date": "2026-08-28",
       "hours": 13.27
+    },
+    {
+      "date": "2026-08-29",
+      "hours": 0.0
     }
   ],
   "projects": [
