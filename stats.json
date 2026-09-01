@@ -1,9 +1,9 @@
 {
   "generated_at": "2026-08-31",
-  "exported_at": "2026-09-01T00:27:20Z",
+  "exported_at": "2026-09-01T00:30:04Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 20.6,
+    "total_hours": 20.7,
     "daily_avg_hours": 5.2,
     "days_active": 4,
     "streak_days": 1,
@@ -24,13 +24,13 @@
     },
     {
       "date": "2026-08-31",
-      "hours": 4.64
+      "hours": 4.71
     }
   ],
   "projects": [
     {
       "name": "Private project",
-      "hours": 2.65
+      "hours": 2.72
     }
   ],
   "apps": [
@@ -40,7 +40,7 @@
     },
     {
       "name": "Claude",
-      "hours": 2.71
+      "hours": 2.78
     },
     {
       "name": "Terminal",
