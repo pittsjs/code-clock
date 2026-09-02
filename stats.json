@@ -1,9 +1,9 @@
 {
   "generated_at": "2026-09-02",
-  "exported_at": "2026-09-02T18:39:22Z",
+  "exported_at": "2026-09-02T18:48:12Z",
   "period_days": 7,
   "summary": {
-    "total_hours": 25.8,
+    "total_hours": 26.0,
     "daily_avg_hours": 4.3,
     "days_active": 6,
     "streak_days": 3,
@@ -32,19 +32,19 @@
     },
     {
       "date": "2026-09-02",
-      "hours": 1.87
+      "hours": 2.0
     }
   ],
   "projects": [
     {
       "name": "Private project",
-      "hours": 4.83
+      "hours": 4.84
     }
   ],
   "apps": [
     {
       "name": "Cursor",
-      "hours": 20.81
+      "hours": 20.94
     },
     {
       "name": "Claude",
