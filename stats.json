@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-09-02",
-  "exported_at": "2026-09-02T20:17:42Z",
+  "exported_at": "2026-09-02T20:24:39Z",
   "period_days": 7,
   "summary": {
     "total_hours": 27.1,
@@ -32,13 +32,13 @@
     },
     {
       "date": "2026-09-02",
-      "hours": 3.13
+      "hours": 3.16
     }
   ],
   "projects": [
     {
       "name": "Private project",
-      "hours": 4.89
+      "hours": 4.92
     }
   ],
   "apps": [
@@ -48,7 +48,7 @@
     },
     {
       "name": "Claude",
-      "hours": 5.06
+      "hours": 5.09
     },
     {
       "name": "Terminal",
